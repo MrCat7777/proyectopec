@@ -4,21 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Partidos</title>
-    <link rel="stylesheet" href="assets/css/estilos.css?v=4.0">
+    <link rel="stylesheet" href="assets/css/estilos.css?v=7.0">
+    <style>
+        .grid-busqueda {
+            display: grid;
+            grid-template-columns: 2fr 2fr 1.2fr;
+            gap: 20px;
+            align-items: end;
+        }
+        .alto-fijo {
+            height: 52px !important;
+            margin-top: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @media (max-width: 768px) {
+            .grid-busqueda {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <a href="index.php" class="btn-back">← Volver al Menú</a>
+        <a href="index.php" class="btn-back seq-1">← Volver al Menú</a>
         
-        <form action="buscar_partidos.php" method="GET" class="card">
-            <div style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
-                <div class="form-group" style="flex: 2; margin-bottom: 0;">
+        <form action="buscar_partidos.php" method="GET" class="card seq-2">
+            <div class="grid-busqueda">
+                <div class="form-group" style="margin-bottom: 0;">
                     <label>Buscar País:</label>
-                    <input type="text" name="seleccion" value="<?= $seleccion ?? '' ?>" placeholder="Ej: Ecuador">
+                    <input type="text" name="seleccion" value="<?= $seleccion ?? '' ?>" placeholder="Ej: Ecuador" class="alto-fijo">
                 </div>
-                <div class="form-group" style="flex: 2; margin-bottom: 0;">
+                
+                <div class="form-group" style="margin-bottom: 0;">
                     <label>Fase:</label>
-                    <select name="fase">
+                    <select name="fase" class="alto-fijo">
                         <option value="todas" <?= (isset($fase) && $fase == 'todas') ? 'selected' : '' ?>>Todas</option>
                         <option value="grupos" <?= (isset($fase) && $fase == 'grupos') ? 'selected' : '' ?>>Grupos</option>
                         <option value="octavos" <?= (isset($fase) && $fase == 'octavos') ? 'selected' : '' ?>>Octavos</option>
@@ -27,8 +48,9 @@
                         <option value="final" <?= (isset($fase) && $fase == 'final') ? 'selected' : '' ?>>Final</option>
                     </select>
                 </div>
-                <div style="flex: 1;">
-                    <button type="submit" style="margin-top: 0; padding: 14px;">Buscar</button>
+                
+                <div>
+                    <button type="submit" class="alto-fijo" style="width: 100%;">Buscar</button>
                 </div>
             </div>
         </form>
@@ -36,23 +58,20 @@
         <?php if (isset($busquedaActiva) && $busquedaActiva): ?>
             
             <?php if (empty($partidos_encontrados)): ?>
-                <div class="alert alert-error">No se encontraron partidos para tu búsqueda.</div>
+                <div class="alert alert-error seq-3">No se encontraron partidos para tu búsqueda.</div>
             <?php else: ?>
-                <div class="bracket-container">
+                <div class="bracket-container seq-3">
                     <?php foreach ($partidos_encontrados as $p): ?>
                         <div class="bracket-node">
-                            <!-- Lado Izquierdo (Local) -->
                             <div class="bracket-team">
                                 <img src="<?= $p['bandera_local'] ?>" alt="Bandera">
                                 <span><?= $p['local'] ?></span>
                             </div>
 
-                            <!-- Centro (Info y Botón) -->
                             <div class="bracket-center">
                                 <span class="neon-tag"><?= $p['fase'] ?></span>
                                 <span class="bracket-date"><?= $p['fecha'] ?></span>
                                 
-                                <!-- VALIDACIÓN DE TIEMPO AQUÍ -->
                                 <?php if ($p['ya_paso']): ?>
                                     <span class="btn-disabled">FINALIZADO</span>
                                 <?php else: ?>
@@ -60,7 +79,6 @@
                                 <?php endif; ?>
                             </div>
 
-                            <!-- Lado Derecho (Visitante) -->
                             <div class="bracket-team team-right">
                                 <img src="<?= $p['bandera_visitante'] ?>" alt="Bandera">
                                 <span><?= $p['visitante'] ?></span>

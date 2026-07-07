@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Pronóstico</title>
-    <link rel="stylesheet" href="assets/css/estilos.css?v=3.0">
+    <link rel="stylesheet" href="assets/css/estilos.css?v=7.0">
 </head>
 <body>
     <div class="container">
-        <a href="index.php" class="btn-back">← Volver al Menú</a>
-        <h2>Registrar Pronóstico</h2>
+        <a href="index.php" class="btn-back seq-1">← Volver al Menú</a>
+        <h2 class="seq-2">Registrar Pronóstico</h2>
 
         <?php if (!empty($errores)): ?>
-            <div class="alert alert-error">
+            <div class="alert alert-error seq-3">
                 <ul style="margin-left: 20px;">
                     <?php foreach ($errores as $err): ?>
                         <li><?= htmlspecialchars($err) ?></li>
@@ -21,7 +21,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="registrar_pronostico.php" method="POST" id="form-pronostico" class="card">
+        <form action="registrar_pronostico.php" method="POST" id="form-pronostico" class="card seq-4">
             <div id="error-js" class="alert alert-error" style="display:none; margin-bottom: 20px;"></div>
 
             <div class="grid-2">
@@ -72,7 +72,6 @@
             <button type="submit">Enviar Pronóstico Final</button>
         </form>
     </div>
-    
     <script src="assets/js/validaciones.js"></script>
 </body>
 </html>
